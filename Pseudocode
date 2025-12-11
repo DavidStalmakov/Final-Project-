@@ -1,0 +1,159 @@
+Start 
+
+Main Module 
+
+    Connect to the students database 
+
+    Create the table if it does not already exist 
+
+  
+
+    While user does not choose to quit 
+
+        Display menu 
+
+        Get user choice  
+
+  
+
+        If selection is 1 then 
+
+            Call Display_Records 
+
+        Else If selection is 2 then 
+
+            Call Edit_Record 
+
+        Else If selection is 3 then 
+
+            Exit loop 
+
+        End If 
+
+    End While 
+
+  
+
+    Close the database connection 
+
+End Module 
+
+  
+
+  
+
+Module Display_Records 
+
+    Execute SQL command to select all records from Students table 
+
+    For each record returned 
+
+        Display Student ID 
+
+        Display Student Name
+
+        Display address 
+
+        Display major 
+
+        Display GPA 
+
+        Display email 
+
+        Display phone number 
+
+        Display Favorite Food
+
+        Display a blank line 
+
+    End For 
+
+End Module 
+
+  
+
+  
+
+Module Edit_Record 
+
+    Call Display_Records 
+
+    Ask user to enter the ID of the record to edit 
+
+    Get recordID 
+
+  
+
+    Execute SQL command to retrieve the record with the matching ID 
+
+  
+
+    If no record is found then 
+
+        Display "Record not found." 
+
+        Return to mainline 
+
+    End If 
+
+  
+
+    Display current field values 
+
+    Ask user which field to change: 
+
+        1. Student ID
+
+        2. Name 
+
+        3. Address 
+
+        4. Major 
+
+        5. GPA 
+
+        6. Email 
+
+        7. Phone Number 
+
+        8. Favorite Food 
+
+        9. Cancel 
+
+    Get choice 
+
+  
+
+    If choice is between 1 and 7 then 
+
+        Ask user for the new value 
+
+        Get newValue 
+
+        Build SQL UPDATE command using newValue and recordID 
+
+        Execute SQL UPDATE command 
+
+        Display "Record updated." 
+
+    Else 
+
+        Display "Edit canceled." 
+
+    End If 
+
+End Module 
+
+  
+
+  
+
+Module Display_Menu 
+
+    Display "1. Display All Student Records" 
+
+    Display "2. Edit a Student Record" 
+
+    Display "3. Quit" 
+
+End Module 
