@@ -1,3 +1,6 @@
+# Student Information Database
+# Matthew Tyler, David Stalmakov
+
 import sqlite3
 
 def main():
@@ -5,30 +8,89 @@ def main():
   cur = conn.cursor()
 
   #Create table
+  cur.execute("""
+    CREATE TABLE IF NOT EXISTS Students (
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT,
+    name TEXT,
+    address TEXT,
+    major TEXT,
+    gpa REAL,
+    email TEXT,
+    phone TEXT,
+    favorite_food TEXT)
+    """)
 
   quit = False
-  While quit == "y":
+  while quit != "y":  # lowercase w in while and I added ! so until quit is not true the program will repeat
       display_menu()
-      choice = int(intput("Select a choice:"))
+      choice = int(input("Select a choice:")) # fixed spelling
       if choice == 1:
-          display_record()
-      if choice == 2:
-          edit_record()
-      if choice == 3:
-          Exit Loop
+        display_record(conn)
+      elif choice == 2:
+        edit_record(conn)
+      elif choice == 3:
+        quit = "y"
+      else:
+        print("Invalid choice")
 
 conn.commit()
 conn.close()
 
-def display_record():
-    #Finish discplay module
+def display_record(conn):
+    #Finish display module
+    cur = conn.cursor()
+    cur.execute(("SELECT * FROM Students")
+    records = cur.fetchall()
 
-def edit_record():
-    display_record()
-    editID = int(input("Enter the ID of the record to edit:"))
+    print("\n--- Student Records ---")
+    for record in records:
+        print(record)
+
+def edit_record(conn):
     #Finish edit_record module
+    cur = conn.cursor()
+    display_record(conn)
+    editID = int(input("Enter which record you want to edit:"))
+
+        print("\nSelect field to edit:")
+        print("1. Student ID")
+        print("2. Student Name")
+        print("3. Student Address")
+        print("4. Major")
+        print("5. GPA")
+        print("6. Email")
+        print("7. Phone Number")
+        Print("8. Favorite Food")
+
+    choice = int(input("Select field to edit: "))
+    new_value = input("Enter new value: ")
+
+    fields = {
+        1: "Student ID",
+        2: "Student Name",
+        3: "Student Address",
+        4: "Major",
+        5: "GPA",
+        6: "Email",
+        7: "Phone Number",
+        8: "Favorite Food"
+    }
+
+    if choice in fields:
+        cur.execute(
+            f"UPDATE Students SET {fields[choice]} = ? WHERE student_id = ?",
+            (new_value, editID)
+        )
+        conn.commit()
+        print("Record updated successfully.")
+    else:
+        print("Selected an invalid field.")
 
 def display_menu():
     print("1. Display All Student Records")
     print("2. Edit a Student Record") 
-    print("3. Quit") 
+    print("3. Quit")
+
+if __name__ == "__main__":
+    main()
