@@ -1,1 +1,34 @@
+import sqlite3
 
+def main():
+  conn = sqlite3.connect('student.db')
+  cur = conn.cursor()
+
+  #Create table
+
+  quit = False
+  While quit == "y":
+      display_menu()
+      choice = int(intput("Select a choice:"))
+      if choice == 1:
+          display_record()
+      if choice == 2:
+          edit_record()
+      if choice == 3:
+          Exit Loop
+
+conn.commit()
+conn.close()
+
+def display_record():
+    #Finish discplay module
+
+def edit_record():
+    display_record()
+    editID = int(input("Enter the ID of the record to edit:"))
+    #Finish edit_record module
+
+def display_menu():
+    print("1. Display All Student Records")
+    print("2. Edit a Student Record") 
+    print("3. Quit") 
