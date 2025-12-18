@@ -70,7 +70,7 @@ def add_record(conn):
 
     cur.execute("""
         INSERT INTO Students (school_id, name, address, major, gpa, email, phone, favorite_food)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?) # Question marks are used instead of writing {school_id, name, address, major, gpa, email, phone, favorite_food} its faster and easier.
     """, (school_id, name, address, major, gpa, email, phone, favorite_food))
     conn.commit()
     print("Record added successfully.")
