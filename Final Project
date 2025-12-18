@@ -29,12 +29,17 @@ def main():
       if choice == "1":
         display_record(conn)
       elif choice == "2":
-        edit_record(conn)
+        add_record(conn)
       elif choice == "3":
+            edit_record(conn)
+      elif choice == "4":
+            delete_record(conn)
+      elif choice == "5":
         quit = "y"
       else:
         print("Invalid choice")
 conn.close()
+print ("Program closed.")
 
 def display_record(conn):
     #Finish display module
@@ -43,12 +48,13 @@ def display_record(conn):
     records = cur.fetchall()
 
     print("\n--- Student Records ---")
-    for record in records:
-        print(record)
+    if not records:
+        print("No records found.")
+    else:
+        for record in records:
+            print(record)
 
 # Allows the user to add a record
-
-
 def add_record(conn):
     cur = conn.cursor()
     print("\nEnter new student information:")
@@ -70,7 +76,7 @@ def add_record(conn):
 
     cur.execute("""
         INSERT INTO Students (school_id, name, address, major, gpa, email, phone, favorite_food)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?) # Question marks are used instead of writing {school_id, name, address, major, gpa, email, phone, favorite_food} its faster and easier.
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?) # Question marks are used instead of writing {school_id}, {name}, {address},etc it is faster and easier.
     """, (school_id, name, address, major, gpa, email, phone, favorite_food))
     conn.commit()
     print("Record added successfully.")
